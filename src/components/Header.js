@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import whiteLogo from '../images/white.png';
 
 const Header = () => {
+    
 
     return (
         <div className='h-[100px] overflow-hidden w-full flex justify-between items-center p-0 m-0 shadow-lg'>
