@@ -1,7 +1,36 @@
 import white from '../Images/White.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+    
+      const res = await axios.post(
+        'http://localhost:3000/login',
+        {
+          emailId : email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(addUser(res.data.user))
+      navigate("/")
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   return (
     <div>
       <Link to="/">
@@ -24,6 +53,10 @@ const Login = () => {
             placeholder="Email"
             className="w-full border-2 p-2 pl-3 outline-none rounded-lg"
             required
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           ></input>
           <br />
           <label className="text-lg font-semibold">Password</label>
@@ -32,11 +65,18 @@ const Login = () => {
             type="password"
             placeholder="Password"
             className="w-full border-2 p-2 pl-3 outline-none rounded-lg"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           ></input>
           <br />
         </div>
         <div className="flex justify-center mt-3">
-          <button className="mx-auto mt-2 py-2 px-12 rounded-2xl bg-green-600 font-bold text-white text-xl">
+          <button
+            onClick={handleLogin}
+            className="mx-auto mt-2 py-2 px-12 rounded-2xl bg-green-600 font-bold text-white text-xl"
+          >
             Login
           </button>
         </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import './index.css';
@@ -10,14 +10,39 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Product from './components/Product';
 import ProductDetails from './components/ProductDetails';
+import { Provider, useDispatch } from 'react-redux';
+import appStore from './utils/appstore';
+import axios from 'axios';
+import { addUser } from './utils/userSlice';
 
-const Applayout = () => {
+const Applayout = () => {  
+
+  const dispatch = useDispatch();
+
+  const fetchUser = async() =>{
+    try{
+      const res = await axios.get('http://localhost:3000/profile/view',{
+        withCredentials:true,
+      })
+      console.log(res.data)
+      dispatch(addUser(res.data))
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchUser();
+  },[])
+
   return (
-    <div className="p-0 m-0">
-      <Header />
-      <Category />
-      <Outlet />
-    </div>
+      
+      <div className="p-0 m-0">
+        <Header />
+        <Category />
+        <Outlet />
+      </div>
+ 
   );
 };
 
@@ -31,9 +56,9 @@ const router = createBrowserRouter([
         element: <Product />,
       },
       {
-        path : 'product/:productId',
-        element : <ProductDetails/>
-      }
+        path: 'product/:productId',
+        element: <ProductDetails />,
+      },
     ],
   },
   {
@@ -48,4 +73,8 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
 
-root.render(<RouterProvider router={router} />);
+root.render(
+  <Provider store={appStore}>
+    <RouterProvider router={router} />
+  </Provider>
+);
