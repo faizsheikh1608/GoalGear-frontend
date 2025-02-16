@@ -1,7 +1,57 @@
+import { useState } from 'react';
 import signup from '../Images/signup.jpg';
 import signup_2 from '../Images/Signup2.jpg';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState(0);
+  const [gender, setGender] = useState('');
+  const [password, setPassword] = useState('');
+  const [reEnterPassword, setReEnterPassword] = useState('');
+  const navigate = useNavigate();
+
+  //handleSubmit
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      if (password !== reEnterPassword) {
+        throw new Error("Passwords do not match!");
+      }
+
+      if (!gender) {
+        return alert("Please select a gender!");
+      }
+
+      const res = await axios.post(
+        'http://localhost:3000/signup',
+        {
+          firstName,
+          lastName,
+          emailId: email,
+          age,
+          gender,
+          password,
+        },
+        { withCredentials: true }
+      );
+
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setAge(0);
+      setGender("male");
+      setPassword("");
+      setReEnterPassword("");
+      navigate("/login")
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="w-10/12 border-2 mx-auto rounded-3xl h-svh overflow-hidden my-5 flex gap-0">
       <div className="w-6/12 relative h-full box-border object-cover">
@@ -27,6 +77,8 @@ const Signup = () => {
               type="text"
               placeholder="First Name"
               required
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             ></input>
 
             <label>Last Name</label>
@@ -35,6 +87,8 @@ const Signup = () => {
               type="text"
               placeholder="Last Name"
               required
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             ></input>
 
             <label>Email</label>
@@ -43,6 +97,8 @@ const Signup = () => {
               type="text"
               placeholder="Email"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             ></input>
 
             <label>Age</label>
@@ -51,6 +107,8 @@ const Signup = () => {
               type="text"
               placeholder="Age"
               required
+              value={age}
+              onChange={(e) => setAge(Number(e.target.value))}
             ></input>
 
             <div className="flex gap-2 bg-transparent py-3">
@@ -63,16 +121,32 @@ const Signup = () => {
                   name="gender"
                   value="male"
                   required
+                  checked={gender === 'male'}
+                  onChange={(e) => setGender(e.target.value)}
                 />
-                <label for="male">Male</label>
+                <label htmlFor="male">Male</label>
               </div>
               <div>
-                <input type="radio" id="female" name="gender" value="female" />
-                <label for="female">Female</label>
+                <input
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="female"
+                  checked={gender === 'female'}
+                  onChange={(e) => setGender(e.target.value)}
+                />
+                <label htmlFor="female">Female</label>
               </div>
               <div>
-                <input type="radio" id="other" name="gender" value="other" />
-                <label for="other">Other</label>
+                <input
+                  type="radio"
+                  id="other"
+                  name="gender"
+                  value="other"
+                  checked={gender === 'other'}
+                  onChange={(e) => setGender(e.target.value)}
+                />
+                <label htmlFor="other">Other</label>
               </div>
             </div>
 
@@ -82,6 +156,8 @@ const Signup = () => {
               type="password"
               placeholder="Password"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             ></input>
 
             <label>Re-enter Password</label>
@@ -90,9 +166,16 @@ const Signup = () => {
               type="password"
               placeholder="Password"
               required
+              value={reEnterPassword}
+              onChange={(e) => setReEnterPassword(e.target.value)}
             ></input>
 
-            <button className="mt-2 bg-green-600 rounded-xl py-2 font-bold text-white text-xl">Submit</button>
+            <button
+              className="mt-2 bg-green-600 rounded-xl py-2 font-bold text-white text-xl"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
           </form>
         </div>
       </div>

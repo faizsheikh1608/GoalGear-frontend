@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductItems from './ProductItems';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setData } from '../utils/productSlice';
 
 const Product = () => {
-  const [productData, setProductData] = useState([]);
+  //const [productData, setProductData] = useState([]);
+  const productData = useSelector((store) => store.product)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     fetchData();
@@ -14,7 +18,7 @@ const Product = () => {
     try {
       const response = await axios.get('http://localhost:3000/allProducts');
      
-      setProductData(response.data.product);
+      dispatch(setData(response.data.product));
     } catch (err) {
       console.log('Error : ', err.message);
     }
