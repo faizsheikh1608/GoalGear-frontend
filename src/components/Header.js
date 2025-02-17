@@ -38,10 +38,12 @@ const Header = () => {
           <i className="bi bi-search bg-gray-100 text-2xl py-[6px] px-5 rounded-r-2xl"></i>
         </div>
       </div>
-      <div className="pr-[10px] flex gap-2">
+      <div className="pr-[10px] flex gap-2 items-center">
+        <Link to={"/cart"}>
         <div className="bg-green-600 py-[6px] px-5 text-xl rounded-2xl cursor-pointer text-white">
           Cart <i className="bi bi-cart4 "></i>
         </div>
+        </Link>
         {user ? (
           <div
             className="relative"

@@ -14,6 +14,7 @@ import { Provider, useDispatch } from 'react-redux';
 import appStore from './utils/appstore';
 import axios from 'axios';
 import { addUser } from './utils/userSlice';
+import Cart from './components/Cart';
 
 const Applayout = () => {  
 
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
     path: '/signup',
     element: <Signup />,
   },
+  {
+    path : '/cart',
+    element : <Cart/>
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));

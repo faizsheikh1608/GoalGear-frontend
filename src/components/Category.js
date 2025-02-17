@@ -46,7 +46,8 @@ const Category = () => {
         </div>
         <h3 className="text-center ">ALL</h3>
       </div>
-      <div className="cursor-pointer  flex flex-col gap-3">
+      <div className="cursor-pointer  flex flex-col gap-3"
+      onClick={() => handlecategory('Shoes')}>
         <div className="w-24  rounded-full shadow-lg overflow-hidden">
           <img src={shoes} alt="Shoes" className="object-cover "></img>
         </div>
@@ -74,7 +75,10 @@ const Category = () => {
         </div>
         <h3 className="text-center ">T-SHIRTS</h3>
       </div>
-      <div className="cursor-pointer  flex flex-col gap-3">
+      <div
+        className="cursor-pointer  flex flex-col gap-3"
+        onClick={() => handlecategory('Football')}
+      >
         <div className="w-24  rounded-full shadow-lg overflow-hidden">
           <img src={football} alt="Football" className="object-cover"></img>
         </div>
@@ -89,11 +93,12 @@ const Category = () => {
         </div>
         <h3 className="text-center">SOCKS</h3>
       </div>
-      <div className="cursor-pointer  flex flex-col gap-4">
+      <div className="cursor-pointer  flex flex-col gap-4"
+      onClick={() => handlecategory('Assecceires')}>
         <div className="w-24  rounded-full shadow-lg ">
           <img src={gloves} alt="Gloves" className="object-cover"></img>
         </div>
-        <h3 className="text-center ">GLOVES</h3>
+        <h3 className="text-center ">ASSECCEIRES</h3>
       </div>
     </div>
   );
