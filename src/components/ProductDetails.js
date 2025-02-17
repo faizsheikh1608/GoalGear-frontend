@@ -6,7 +6,7 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [productSize, setProductSize] = useState('');
-  const [showImage,setShowImage] = useState('')
+  const [showImage, setShowImage] = useState('');
 
   const { productId } = useParams();
 
@@ -22,7 +22,7 @@ const ProductDetails = () => {
       );
       console.log(response.data.product);
       setProduct(response.data.product);
-      setShowImage(response.data.product?.color?.[0]?.mainImageUrl)
+      setShowImage(response.data.product?.color?.[0]?.mainImageUrl);
     } catch (err) {
       console.log('Error ', err.message);
     }
@@ -40,12 +40,29 @@ const ProductDetails = () => {
   const description = product?.description;
   const stock = product?.stock ?? 1;
 
-  
-
   const increasedQuantity = () =>
     setQuantity((prev) => (prev < stock ? prev + 1 : prev));
   const decreasedQuantity = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
+
+  //handle add to cart
+  const handleAdd = async () => {
+    try {
+      const res = await axios.post(
+        `http://localhost:3000/cart/addItem`,
+        {
+          productId: productId,
+          status: 'notPlaced',
+          size: productSize,
+          quantity: quantity,
+        },
+        { withCredentials: true }
+      );
+      console.log(res)
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="flex gap-8 my-8 mx-28">
@@ -55,12 +72,24 @@ const ProductDetails = () => {
           src={showImage}
           className="w-full h-full rounded-3xl"
         ></img>
-        <div className='absolute flex justify-center gap-5  bottom-2 left-[175px]'>
-          <div onClick={() => setShowImage(mainImage)} className='w-[80px] h-[80px] border-2 border-black cursor-pointer rounded-2xl'>
-            <img className='h-full w-full object-cover rounded-2xl' src={mainImage}></img>
+        <div className="absolute flex justify-center gap-5  bottom-2 left-[175px]">
+          <div
+            onClick={() => setShowImage(mainImage)}
+            className="w-[80px] h-[80px] border-2 border-black cursor-pointer rounded-2xl"
+          >
+            <img
+              className="h-full w-full object-cover rounded-2xl"
+              src={mainImage}
+            ></img>
           </div>
-          <div onClick={() => setShowImage(hoverImage)} className='w-[80px] h-[80px] border-2 border-black cursor-pointer rounded-2xl'>
-            <img className='h-full w-full object-cover rounded-2xl hover:border-blue-600' src={hoverImage}></img>
+          <div
+            onClick={() => setShowImage(hoverImage)}
+            className="w-[80px] h-[80px] border-2 border-black cursor-pointer rounded-2xl"
+          >
+            <img
+              className="h-full w-full object-cover rounded-2xl hover:border-blue-600"
+              src={hoverImage}
+            ></img>
           </div>
         </div>
       </div>
@@ -77,7 +106,9 @@ const ProductDetails = () => {
               <div
                 onClick={() => setProductSize(s)}
                 key={s}
-                className={`border-2 py-1 px-4 cursor-pointer text-black hover:border-black ${productSize === s ? `bg-black text-white` : `` }`}
+                className={`border-2 py-1 px-4 cursor-pointer text-black hover:border-black ${
+                  productSize === s ? `bg-black text-white` : ``
+                }`}
               >
                 {s}
               </div>
@@ -100,7 +131,10 @@ const ProductDetails = () => {
               +
             </div>
           </div>
-          <div className="text-center bg-black text-white py-3 mx-4 cursor-pointer">
+          <div
+            onClick={handleAdd}
+            className="text-center bg-black text-white py-3 mx-4 cursor-pointer"
+          >
             ADD TO CART
           </div>
         </div>
@@ -127,11 +161,17 @@ const ProductDetails = () => {
             <p className="font-semibold">Secure Checkout</p>
           </div>
         </div>
-        <div id="description " className='mx-4 mt-4 mb-3'>
-          <h2 className='text-gray-500 font-bold text-[20px]'>Description</h2>
-          <h4 className='py-2 text-[18px] font-semibold'>{description.descriptionHeading}</h4>
+        <div id="description " className="mx-4 mt-4 mb-3">
+          <h2 className="text-gray-500 font-bold text-[20px]">Description</h2>
+          <h4 className="py-2 text-[18px] font-semibold">
+            {description.descriptionHeading}
+          </h4>
           <ul className="list-disc pl-8">
-            {description.descriptionData.map((des) => <li key={des} className="py-1">{des}</li>)}
+            {description.descriptionData.map((des) => (
+              <li key={des} className="py-1">
+                {des}
+              </li>
+            ))}
           </ul>
         </div>
       </div>
