@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Items = (props) => {
   console.log(props);
-  const { item, setTotal } = props;
+  const { item, setTotal, removeItem } = props;
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -13,8 +15,9 @@ const Items = (props) => {
         { withCredentials: true }
       );
       setData(res.data.product);
-      setTotal((prevTotal) => prevTotal + (res.data.product.price * item.quantity));
-     
+      setTotal(
+        (prevTotal) => prevTotal + res.data.product.price * item.quantity
+      );
     } catch (err) {
       console.log(err);
     }
@@ -22,7 +25,10 @@ const Items = (props) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [item.productId]);
+
+  //Handle Remove Item
+  
 
   if (!data) {
     return <h1>Loading....</h1>;
@@ -48,7 +54,14 @@ const Items = (props) => {
 
         <p className="text-lg mt-5 font-semibold">Price : ₹ {data.price}</p>
       </div>
-      <div>
+      <div
+        onClick={() => {
+          setTotal(
+            (prevTotal) => prevTotal - (data.price * item.quantity)
+          );
+          return removeItem(item.productId);
+        }}
+      >
         <i className="bi bi-x-lg absolute right-4 top-3 cursor-pointer"></i>
       </div>
     </div>

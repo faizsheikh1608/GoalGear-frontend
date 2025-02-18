@@ -23,6 +23,25 @@ const CartData = () => {
     fetchData();
   }, []);
 
+  const removeItem = async (productId) => {
+    try {
+      // Optimistically remove the item from the UI
+      const updatedItems = data.filter((item) => item.productId !== productId);
+      setData(updatedItems);
+
+
+     
+
+      // Send the delete request to the server
+      await axios.delete(`http://localhost:3000/cart/removeItem/${productId}`, {
+        withCredentials: true,
+      });
+    } catch (err) {
+      console.log(err);
+      fetchData(); 
+    }
+  };
+
   if(!data){
     return <h1>Loading.....</h1>
   }
@@ -32,7 +51,7 @@ const CartData = () => {
       <div id="items" className="w-[700px]">
         {data.map((items) => {
          
-          return <Items key={items._id} item={items} setTotal={setTotal}/>;
+          return <Items key={items._id} item={items} setTotal={setTotal} removeItem={removeItem}/>;
         })}
       </div>
       <div
