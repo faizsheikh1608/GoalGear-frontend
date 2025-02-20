@@ -1,14 +1,17 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx parcel index.html"
+    "start": "npx parcel index.html",
+    "build": "parcel build index.html"
   },
   "author": "",
   "license": "ISC",
   "description": "",
+  "engines": {
+  "node": "18.x"
+},
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "buffer": "^6.0.3",
