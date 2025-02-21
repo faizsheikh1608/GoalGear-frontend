@@ -13,7 +13,7 @@ import Signup from './components/Signup';
 import Product from './components/Product';
 import ProductDetails from './components/ProductDetails';
 import { Provider, useDispatch } from 'react-redux';
-import appStore from './utils/appstore';
+import appStore from './utils/appStore';
 import axios from 'axios';
 import { addUser } from './utils/userSlice';
 import Cart from './components/Cart';
