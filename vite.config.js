@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: './', // Ensures assets are loaded correctly
   build: {
-    outDir: 'dist', // Ensures correct output directory
+    outDir: 'dist', // Ensures correct output diretory
   },
   server: {
     historyApiFallback: true, // Fixes SPA routing issues

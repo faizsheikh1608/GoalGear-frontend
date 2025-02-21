@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import whiteLogo from '../images/white.png';
+import whiteLogo from '../Images/White.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import axios from 'axios';
