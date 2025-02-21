@@ -18,11 +18,11 @@ const Signup = () => {
     try {
       e.preventDefault();
       if (password !== reEnterPassword) {
-        throw new Error("Passwords do not match!");
+        throw new Error('Passwords do not match!');
       }
 
       if (!gender) {
-        return alert("Please select a gender!");
+        return alert('Please select a gender!');
       }
 
       const res = await axios.post(
@@ -38,14 +38,14 @@ const Signup = () => {
         { withCredentials: true }
       );
 
-      setFirstName("");
-      setLastName("");
-      setEmail("");
+      setFirstName('');
+      setLastName('');
+      setEmail('');
       setAge(0);
-      setGender("male");
-      setPassword("");
-      setReEnterPassword("");
-      navigate("/login")
+      setGender('male');
+      setPassword('');
+      setReEnterPassword('');
+      navigate('/login');
     } catch (err) {
       console.log(err);
     }
