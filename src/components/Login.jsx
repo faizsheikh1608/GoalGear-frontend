@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { addUser } from '../utils/appStore';
+import { addUser } from '../utils/userSlice';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +11,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  onst handleLogin = async () => {
+  const handleLogin = async () => {
     try {
     
       const res = await axios.post(
