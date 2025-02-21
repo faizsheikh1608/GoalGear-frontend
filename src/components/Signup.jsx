@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import signup_2 from '../Images/Signup2.jpg';
+
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -56,7 +56,7 @@ const Signup = () => {
       <div className="w-6/12 relative h-full box-border object-cover">
         <img
           className="w-full h-full object-cover"
-          src={signup_2}
+          src="/images/Signup2.jpg"
           alt="Signup"
         ></img>
         <div className="absolute w-10/12 top-[25px] left-[0px] bg-black bg-gradient-to-l from-green-800	 py-6 px-4 text-xl rounded-e-full font-bold text-white">

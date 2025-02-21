@@ -1,4 +1,4 @@
-import white from '../Images/White.png';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
@@ -36,7 +36,7 @@ const Login = () => {
       <Link to="/">
         {' '}
         <img
-          src={white}
+          src="/images/White.png"
           alt="logo"
           className="w-[350px] m-auto mt-[60px] mb-0 pb-0 cursor-pointer"
           required

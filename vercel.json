@@ -1,7 +1,22 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "routes": [
-    { "src": "/(.*)", "dest": "/index.html" }
+  "headers": [
+    {
+      "source": "/assets/(.*)\\.js", 
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        }
+      ]
+    },
+    {
+      "source": "/:path*.js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        }
+      ]
+    }
   ]
 }

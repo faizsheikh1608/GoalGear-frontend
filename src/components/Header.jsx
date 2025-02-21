@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import whiteLogo from '../Images/White.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import axios from 'axios';
@@ -24,7 +23,7 @@ const Header = () => {
       <div className="w-[400px]  flex justify-start items-center relative p-0 m-0">
         <img
           className="w-[280px] h-full  object-cover"
-          src={whiteLogo}
+          src="/images/White.png"
           alt="Logo"
         ></img>
       </div>
