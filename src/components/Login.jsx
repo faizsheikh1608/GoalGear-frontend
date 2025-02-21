@@ -11,7 +11,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  onst handleLogin = async () => {
     try {
     
       const res = await axios.post(
